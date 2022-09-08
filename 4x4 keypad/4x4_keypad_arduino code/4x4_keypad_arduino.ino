@@ -1,0 +1,41 @@
+
+#include <Keypad.h>
+#include <LiquidCrystal.h>
+
+const byte ROWS = 4; //four rows
+const byte COLS = 4; //four columns
+//define the the buttons of the keypads
+char hexaKeys[ROWS][COLS] = {
+                             {'1','2','3','A'},
+                             {'4','5','6','B'},
+                             {'7','8','9','C'},
+                             {'*','0','#','D'}
+                                              };
+byte rowPins[ROWS] = {0, 1, 2, 3}; 
+byte colPins[COLS] = {4, 5, 6, 7};
+
+//initialize an instance of class NewKeypad
+Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
+LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
+
+
+void setup() 
+{
+  lcd.begin(16, 2);
+  lcd.print("Coding Tips BD");
+  delay(8000);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+}
+
+
+void loop()
+{
+  
+  char customKey = customKeypad.getKey();
+  
+  if (customKey) 
+  {
+    lcd.print(customKey);
+  }
+}
